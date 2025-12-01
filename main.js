@@ -58,7 +58,7 @@ function generatePerson(dataset, minAge, maxAge) {
            };
 }
 
-export  function generateEmployeeData(dtoIn) {
+export function generateEmployeeData(dtoIn) {
     let dtoOut = [];
 
     for (let i = 0; i < dtoIn.count; i++) {
@@ -153,6 +153,7 @@ export function getEmployeeStatistics(dtoIn) {
     }
 
     dtoOut.averageAge = agesSum / allAges.length;
+    dtoOut.averageAge = dtoOut.averageAge.toFixed(1);
 
     allAges.sort();
     allWorkloads.sort();
@@ -192,3 +193,4 @@ export function main(dtoIn) {
 
     return dtoOut;
 }
+
