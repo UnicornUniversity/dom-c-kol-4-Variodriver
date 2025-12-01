@@ -137,17 +137,24 @@ export function getEmployeeStatistics(dtoIn) {
     } else {
         dtoOut.averageAge = 0;
     }
-
+    
     allAges.sort((a, b) => a - b);
     allWorkloads.sort((a, b) => a - b);
 
-    if (allAges.length % 2 === 0) {
-        let index = Math.floor(allAges.length / 2);
-        dtoOut.medianAge = (allAges[index] + allAges[index + 1]) / 2;
-        dtoOut.medianWorkload = (allWorkloads[index] + allWorkloads[index + 1]) / 2;
+    if (allAges.length > 0) {
+        const mid = Math.floor(allAges.length / 2);
+        let medianAge;
+        if (allAges.length % 2 === 0) {
+            medianAge = (allAges[mid - 1] + allAges[mid]) / 2;
+            dtoOut.medianWorkload = (allWorkloads[mid - 1] + allWorkloads[mid]) / 2;
+        } else {
+            medianAge = allAges[mid];
+            dtoOut.medianWorkload = allWorkloads[mid];
+        }
+        dtoOut.medianAge = Number(medianAge.toFixed(0));
     } else {
-        let index = allAges.length / 2;
-        dtoOut.medianAge = allAges[index];
+        dtoOut.medianAge = 0;
+        dtoOut.medianWorkload = 0;
     }
 
     dtoOut.sortedByWorkload.sort((a, b) => {
@@ -181,3 +188,12 @@ export function main(dtoIn) {
 
     return dtoOut;
 }
+
+
+console.log(main({
+    count: 50,
+    age: {
+        min: 4,
+        max: 50
+    }
+}));
