@@ -137,7 +137,7 @@ export function getEmployeeStatistics(dtoIn) {
     } else {
         dtoOut.averageAge = 0;
     }
-    
+
     allAges.sort((a, b) => a - b);
     allWorkloads.sort((a, b) => a - b);
 
@@ -156,6 +156,8 @@ export function getEmployeeStatistics(dtoIn) {
         dtoOut.medianAge = 0;
         dtoOut.medianWorkload = 0;
     }
+
+    dtoOut.medianAge = Number.parseFloat(dtoOut.medianAge.toFixed(1));
 
     dtoOut.sortedByWorkload.sort((a, b) => {
         if (a.workload > b.workload) return 1;
@@ -189,7 +191,7 @@ export function main(dtoIn) {
     return dtoOut;
 }
 
-
+/*
 console.log(main({
     count: 50,
     age: {
@@ -197,3 +199,5 @@ console.log(main({
         max: 50
     }
 }));
+
+ */
