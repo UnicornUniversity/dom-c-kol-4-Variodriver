@@ -152,8 +152,13 @@ export function getEmployeeStatistics(dtoIn) {
         if (a.workload < b.workload) return -1;
         return 0;
     });
-
-    dtoOut.averageWomenWorkload = womenWorkloadSum / womenCount;
+    
+    if (allAges.averageWomenWorkload > 0) {
+        dtoOut.averageWomenWorkload = womenWorkloadSum / womenCount;
+        dtoOut.averageWomenWorkload = Number.parseFloat(dtoOut.averageWomenWorkload.toFixed(1));
+    } else {
+        dtoOut.averageWomenWorkload = 0;
+    }
 
     return dtoOut;
 }
