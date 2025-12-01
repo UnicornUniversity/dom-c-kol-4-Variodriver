@@ -151,12 +151,12 @@ export function getEmployeeStatistics(dtoIn) {
             medianAge = allAges[mid];
             dtoOut.medianWorkload = allWorkloads[mid];
         }
-        dtoOut.medianAge = Number(medianAge.toFixed(0));
+        dtoOut.medianAge = medianAge | 0;
     } else {
         dtoOut.medianAge = 0;
         dtoOut.medianWorkload = 0;
     }
-    
+
     dtoOut.sortedByWorkload.sort((a, b) => {
         if (a.workload > b.workload) return 1;
         if (a.workload < b.workload) return -1;
