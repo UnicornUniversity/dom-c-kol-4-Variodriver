@@ -95,6 +95,9 @@ export function getEmployeeStatistics(dtoIn) {
     let womenCount = 0;
     let womenWorkloadSum = 0;
 
+    // Temp variable to count averageAge
+    let agesSum = 0;
+    
     // Temp variable to count medianAge
     let allAges = [];
 
@@ -121,6 +124,8 @@ export function getEmployeeStatistics(dtoIn) {
                 break
         }
 
+        agesSum += age;
+        
         dtoOut.minAge = Math.min(dtoOut.minAge, age);
         dtoOut.maxAge = Math.max(dtoOut.maxAge, age);
 
@@ -134,6 +139,8 @@ export function getEmployeeStatistics(dtoIn) {
 
         dtoOut.sortedByWorkload.push(employee);
     }
+    
+    dtoOut.averageAge = agesSum / allAges.length;
 
     allAges.sort();
     allWorkloads.sort();
