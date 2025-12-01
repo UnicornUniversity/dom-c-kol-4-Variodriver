@@ -192,12 +192,3 @@ export function main(dtoIn) {
 
     return dtoOut;
 }
-
-
-console.log(main({
-    count: 50,
-    age: {
-        min: 4,
-        max: 6
-    }
-}));
