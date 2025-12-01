@@ -114,8 +114,8 @@ export function getEmployeeStatistics(dtoIn) {
 
         agesSum += age;
 
-        dtoOut.minAge = Math.min(dtoOut.minAge, age);
-        dtoOut.maxAge = Math.max(dtoOut.maxAge, age);
+        dtoOut.minAge = Math.min(dtoOut.minAge, Math.round(age));
+        dtoOut.maxAge = Math.max(dtoOut.maxAge, Math.round(age));
 
         allAges.push(age);
         allWorkloads.push(employee.workload);
