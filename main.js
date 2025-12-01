@@ -135,8 +135,8 @@ export function getEmployeeStatistics(dtoIn) {
         dtoOut.averageAge = 0;
     }
 
-    allAges.sort();
-    allWorkloads.sort();
+    allAges.sort((a, b) => a - b);
+    allWorkloads.sort((a, b) => a - b);
 
     if (allAges.length % 2 === 0) {
         let index = Math.floor(allAges.length / 2);
@@ -153,7 +153,7 @@ export function getEmployeeStatistics(dtoIn) {
         return 0;
     });
 
-    if (womenCount.length > 0) {
+    if (womenCount > 0) {
         dtoOut.averageWomenWorkload = womenWorkloadSum / womenCount;
         dtoOut.averageWomenWorkload = Number.parseFloat(dtoOut.averageWomenWorkload.toFixed(1));
     } else {
