@@ -71,7 +71,7 @@ export function generateEmployeeData(dtoIn) {
 }
 
 function getAge(date) {
-    let diff = Date() - date.getTime();
+    let diff = Date() - new Date(date).getTime();
     return new Date(diff).getUTCFullYear();
 }
 
