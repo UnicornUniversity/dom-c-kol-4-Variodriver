@@ -156,9 +156,7 @@ export function getEmployeeStatistics(dtoIn) {
         dtoOut.medianAge = 0;
         dtoOut.medianWorkload = 0;
     }
-
-    dtoOut.medianAge = Number.parseFloat(dtoOut.medianAge.toFixed(1));
-
+    
     dtoOut.sortedByWorkload.sort((a, b) => {
         if (a.workload > b.workload) return 1;
         if (a.workload < b.workload) return -1;
@@ -193,11 +191,12 @@ export function main(dtoIn) {
 
 /*
 console.log(main({
-    count: 50,
+    count: 51,
     age: {
-        min: 4,
-        max: 50
+        min: 1,
+        max: 4
     }
 }));
 
  */
+
