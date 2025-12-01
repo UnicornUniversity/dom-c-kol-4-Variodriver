@@ -54,20 +54,13 @@ export function generateEmployeeData(dtoIn) {
 }
 
 function getAge(birthdate) {
-    const today = new Date();
+    const now = new Date();
     const dob = new Date(birthdate);
 
-    let age = today.getFullYear() - dob.getFullYear();
+    const diffMs = now - dob;
+    const ageYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
 
-    const hasBirthdayPassed =
-        today.getMonth() > dob.getMonth() ||
-        (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate());
-
-    if (!hasBirthdayPassed) {
-        age--;
-    }
-
-    return age;
+    return ageYears;
 }
 
 export function getEmployeeStatistics(dtoIn) {
@@ -135,8 +128,12 @@ export function getEmployeeStatistics(dtoIn) {
         dtoOut.sortedByWorkload.push(employee);
     }
 
-    dtoOut.averageAge = agesSum / allAges.length;
-    dtoOut.averageAge = Number.parseFloat(dtoOut.averageAge.toFixed(1));
+    if (allAges.length > 0) {
+        dtoOut.averageAge = agesSum / allAges.length;
+        dtoOut.averageAge = Number.parseFloat(dtoOut.averageAge.toFixed(1));
+    } else {
+        dtoOut.averageAge = 0;
+    }
 
     allAges.sort();
     allWorkloads.sort();
