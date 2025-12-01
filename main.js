@@ -58,7 +58,7 @@ function generatePerson(dataset, minAge, maxAge) {
            };
 }
 
-export function generateEmployeeData(dtoIn) {
+export  function generateEmployeeData(dtoIn) {
     let dtoOut = [];
 
     for (let i = 0; i < dtoIn.count; i++) {
@@ -70,9 +70,21 @@ export function generateEmployeeData(dtoIn) {
     return dtoOut;
 }
 
-function getAge(date) {
-    let diff = Date() - new Date(date).getTime();
-    return new Date(diff).getUTCFullYear();
+function getAge(birthdate) {
+    const today = new Date();
+    const dob = new Date(birthdate);
+
+    let age = today.getFullYear() - dob.getFullYear();
+
+    const hasBirthdayPassed =
+        today.getMonth() > dob.getMonth() ||
+        (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate());
+
+    if (!hasBirthdayPassed) {
+        age--;
+    }
+
+    return age;
 }
 
 export function getEmployeeStatistics(dtoIn) {
@@ -97,7 +109,7 @@ export function getEmployeeStatistics(dtoIn) {
 
     // Temp variable to count averageAge
     let agesSum = 0;
-    
+
     // Temp variable to count medianAge
     let allAges = [];
 
@@ -125,7 +137,7 @@ export function getEmployeeStatistics(dtoIn) {
         }
 
         agesSum += age;
-        
+
         dtoOut.minAge = Math.min(dtoOut.minAge, age);
         dtoOut.maxAge = Math.max(dtoOut.maxAge, age);
 
@@ -139,7 +151,7 @@ export function getEmployeeStatistics(dtoIn) {
 
         dtoOut.sortedByWorkload.push(employee);
     }
-    
+
     dtoOut.averageAge = agesSum / allAges.length;
 
     allAges.sort();
@@ -156,7 +168,7 @@ export function getEmployeeStatistics(dtoIn) {
 
     dtoOut.sortedByWorkload.sort((a, b) => {
         if (a.workload > b.workload) return 1;
-        if (a.workload < b.workload) return 1;
+        if (a.workload < b.workload) return -1;
         return 0;
     });
 
@@ -181,11 +193,11 @@ export function main(dtoIn) {
     return dtoOut;
 }
 
-/*
+
 console.log(main({
-    count: 1,
+    count: 50,
     age: {
-        min: 2,
-        max: 8
+        min: 4,
+        max: 6
     }
-})[0]);*/
+}));
