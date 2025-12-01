@@ -136,7 +136,7 @@ export function getEmployeeStatistics(dtoIn) {
     }
 
     dtoOut.averageAge = agesSum / allAges.length;
-    dtoOut.averageAge = Number.parseFloat(dtoOut.averageAge.toFixed(2));
+    dtoOut.averageAge = Number.parseFloat(dtoOut.averageAge.toFixed(1));
 
     allAges.sort();
     allWorkloads.sort();
