@@ -14,7 +14,13 @@ let names = [
 
 let workloads = [10, 20, 30, 40];
 
-
+/**
+ * Function to create random birthdate
+ *
+ * @param minAge Min age of date
+ * @param maxAge Max age of date
+ * @returns {Date} Date in range
+ */
 function generateBirthday(minAge, maxAge) {
     const now = new Date();
 
@@ -31,6 +37,14 @@ function generateBirthday(minAge, maxAge) {
     return new Date(randomTime);
 }
 
+/**
+ * Function to create object of person
+ *
+ * @param dataset Dataset with gender, names and surnames
+ * @param minAge Minimum age
+ * @param maxAge Maximum age
+ * @returns {{gender: (string|*), birthdate: string, name: string, surname: string, workload: number}} Created person
+ */
 function generatePerson(dataset, minAge, maxAge) {
     return {
             gender: dataset.gender,
@@ -41,28 +55,44 @@ function generatePerson(dataset, minAge, maxAge) {
            };
 }
 
+/**
+ * Creates array of people
+ *
+ * @param dtoIn
+ * @returns {*[]}
+ */
 export function generateEmployeeData(dtoIn) {
     let dtoOut = [];
 
     for (let i = 0; i < dtoIn.count; i++) {
         let selectedDataset = names[Math.floor(Math.random() * names.length)];
         dtoOut.push(generatePerson(selectedDataset, dtoIn.age.min, dtoIn.age.max));
-
     }
 
     return dtoOut;
 }
 
+
+/**
+ * Returns age of person with birthdate
+ *
+ * @param birthdate Birthdate of person
+ * @returns Number Age of person
+ */
 function getAge(birthdate) {
-    const now = new Date();
-    const dob = new Date(birthdate);
+    let now = new Date();
+    let dob = new Date(birthdate);
 
-    const diffMs = now - dob;
-    const ageYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
-
-    return ageYears;
+    let diffMs = now - dob;
+    return diffMs / (1000 * 60 * 60 * 24 * 365.25);
 }
 
+/**
+ * Computes statistics of employees
+ *
+ * @param dtoIn Object of employees
+ * @returns {{total: number, workload10: number, workload20: number, workload30: number, workload40: number, averageAge: number, minAge: number, maxAge: number, medianAge: number, medianWorkload: number, sortedByWorkload: *[], averageWomenWorkload: number}} Output statistics
+ */
 export function getEmployeeStatistics(dtoIn) {
     let dtoOut = {
         total: 0,
@@ -113,9 +143,6 @@ export function getEmployeeStatistics(dtoIn) {
         }
 
         agesSum += age;
-
-        //dtoOut.minAge = Math.min(dtoOut.minAge, Number.parseFloat(age.toFixed(0)));
-        //dtoOut.maxAge = Math.max(dtoOut.maxAge, Number.parseFloat(age.toFixed(0)));
 
         dtoOut.minAge = Math.min(dtoOut.minAge, (age | 0));
         dtoOut.maxAge = Math.max(dtoOut.maxAge, (age | 0));
@@ -178,25 +205,12 @@ export function getEmployeeStatistics(dtoIn) {
  * Generator of employees
  *
  * @param {object} dtoIn contains count of employees, age limit of employees {min, max}
- * @returns {Array} of employees
+ * @returns {{total: number, workload10: number, workload20: number, workload30: number, workload40: number, averageAge: number, minAge: number, maxAge: number, medianAge: number, medianWorkload: number, sortedByWorkload: *[], averageWomenWorkload: number}} Statistics of employees
  */
 export function main(dtoIn) {
-
     let employees = generateEmployeeData(dtoIn);
 
     let dtoOut = getEmployeeStatistics(employees);
 
     return dtoOut;
 }
-
-/*
-console.log(main({
-    count: 51,
-    age: {
-        min: 1,
-        max: 4
-    }
-}));
-
- */
-
